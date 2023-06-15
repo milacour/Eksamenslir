@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Linjegraf med D3.js</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <svg id="linjegraf"></svg>
+
+  <script>
+    // Data
+    const dataset = [
+      { year: 2000, value: 10 },
+      { year: 2001, value: 20 },
+      { year: 2002, value: 15 },
+      { year: 2003, value: 25 },
+      { year: 2004, value: 18 }
+    ];
+
+    // Opret SVG-elementet
+    const svg = d3.select("#linjegraf")
+                  .attr("width", 400)
+                  .attr("height", 300);
+
+    // Definér skaler
+    const xScale = d3.scaleLinear()
+                     .domain([2000, 2004])
+                     .range([30, 370]);
+
+    const yScale = d3.scaleLinear()
+                     .domain([0, d3.max(dataset, (d) => d.value)])
+                     .range([270, 30]);
+
+    // Opret linjen
+    const line = d3.line()
+                   .x((d) => xScale(d.year))
+                   .y((d) => yScale(d.value));
+
+    // Tegn linjen
+    svg.append("path")
+       .datum(dataset)
+       .attr("d", line)
+       .attr("fill", "none")
+       .attr("stroke", "steelblue");
+  </script>
+</body>
+</html>
+
+
+Dette eksempel viser oprettelsen af en linjegraf ved hjælp af D3.js.
+Koden inkluderer D3.js-biblioteket og opretter et SVG-element med id'et
+"linjegraf". Dataene er defineret i dataset-variablen, hvor hvert objekt
+repræsenterer et punkt på linjegrafen med en årgang og en værdi.
+Skalerne xScale og yScale defineres for at tilpasse dataene til diagrammets dimensioner.
+Linjen oprettes ved hjælp af line-funktionen, hvor x og y-værdierne tildeles baseret på skalerne.
+Til sidst tegnes linjen ved hjælp af path-elementet.

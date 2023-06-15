@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cirkeldiagram med D3.js</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <svg id="cirkeldiagram"></svg>
+
+  <script>
+    // Data
+    const dataset = [
+      { label: "A", value: 30 },
+      { label: "B", value: 50 },
+      { label: "C", value: 20 }
+    ];
+
+    // Opret SVG-elementet
+    const svg = d3.select("#cirkeldiagram")
+                  .attr("width", 400)
+                  .attr("height", 300);
+
+    // Opret buegenerator
+    const pie = d3.pie().value((d) => d.value);
+
+    // Angiv størrelsen af cirkeldiagrammet
+    const arc = d3.arc()
+                  .innerRadius(0)
+                  .outerRadius(100);
+
+    // Opret cirkeldiagrammet
+    const paths = svg.selectAll("path")
+                     .data(pie(dataset))
+                     .enter()
+                     .append("path")
+                     .attr("d", arc)
+                     .attr("fill", (d, i) => ["red", "green", "blue"][i]);
+
+    // Tilføj labels
+    svg.selectAll("text")
+       .data(pie(dataset))
+       .enter()
+       .append("text")
+       .text((d) => d.data.label)
+       .attr("transform", (d) => `translate(${arc.centroid(d)})`)
+       .attr("text-anchor", "middle");
+  </script>
+</body>
+</html>
+
+Dette eksempel viser oprettelsen af et cirkeldiagram med labels ved hjælp af D3.js.
+Koden inkluderer D3.js-biblioteket og opretter et SVG-element med id'et "cirkeldiagram".
+Dataene er defineret i dataset-variablen, hvor hvert objekt repræsenterer et segment i
+cirkeldiagrammet med en etiket og en værdi. Cirkeldiagrammet oprettes ved hjælp af buegeneratoren
+pie og størrelsesangivelsen arc. Labels tilføjes også ved hjælp af text-elementer, hvor text-anchor
+angiver placeringen af teksten i midten af hvert segment.

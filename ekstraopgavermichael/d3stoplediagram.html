@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stolpediagram med D3.js</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <svg id="stolpediagram"></svg>
+
+  <script>
+    // Data
+    const data = [10, 25, 15, 20, 12];
+
+    // Opret SVG-elementet
+    const svg = d3.select("#stolpediagram")
+                  .attr("width", 400)
+                  .attr("height", 300);
+
+    // Opret stolperne
+    svg.selectAll("rect")
+       .data(data)
+       .enter()
+       .append("rect")
+       .attr("x", (d, i) => i * 60)
+       .attr("y", (d) => 300 - d * 10)
+       .attr("width", 50)
+       .attr("height", (d) => d * 10)
+       .attr("fill", "steelblue");
+
+  </script>
+</body>
+</html>
+
+Dette eksempel kan være et eksamensspørgsmål på en første eksamen inden for webteknologi,
+der omhandler D3.js og datavisualisering. Koden opretter et simpelt stolpediagram ved hjælp af D3.js.
+Først inkluderes D3.js-biblioteket via en CDN-link. Derefter oprettes et SVG-element med id'et "stolpediagram"
+og dimensionerne angivet. Herefter bruges D3.js-metoderne til at oprette stolperne baseret på dataene i dataset.
+Stolperne positioneres, og deres størrelse og farve tildeles.
+
+Spørgsmålet kunne bede eksaminanden om at forklare hver del af koden, herunder håndteringen af databinding,
+oprettelsen af stolperne og anvendelsen af D3.js-metoderne til at angive positioner og attributter for visualiseringen.

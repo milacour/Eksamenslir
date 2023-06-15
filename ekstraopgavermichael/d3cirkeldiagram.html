@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cirkeldiagram med D3.js</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <svg id="cirkeldiagram"></svg>
+
+  <script>
+    // Data
+    const data = [30, 20, 50];
+
+    // Opret SVG-elementet
+    const svg = d3.select("#cirkeldiagram")
+                  .attr("width", 400)
+                  .attr("height", 300);
+
+    // Opret buegenerator
+    const pie = d3.pie();
+
+    // Angiv størrelsen af cirkeldiagrammet
+    const arc = d3.arc()
+                  .innerRadius(0)
+                  .outerRadius(100);
+
+    // Opret cirkeldiagrammet
+    svg.selectAll("path")
+       .data(pie(data))
+       .enter()
+       .append("path")
+       .attr("d", arc)
+       .attr("fill", (d, i) => ["red", "green", "blue"][i]);
+  </script>
+</body>
+</html>
+
+Dette eksempel viser oprettelsen af et simpelt cirkeldiagram ved hjælp af D3.js.
+Det opretter et SVG-element med id'et "cirkeldiagram" og angiver dimensionerne.
+Derefter bruger det D3.js-metoderne til at oprette buegenerator og angive størrelsen af cirkeldiagrammet.
+Til sidst oprettes cirkeldiagrammet ved hjælp af data og farverne tildeles baseret på indekset.

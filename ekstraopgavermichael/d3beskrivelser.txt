@@ -1,0 +1,185 @@
+Beskrivelse af D3.js og forskelle fra andre datavisualiseringsbiblioteker:
+D3.js (Data-Driven Documents) er et JavaScript-bibliotek, der bruges til at oprette
+interaktive og dynamiske datavisualiseringer i webbrowsere. Det adskiller sig fra
+andre datavisualiseringsbiblioteker ved at have en stærk fokus på databinding og 
+anipulation af DOM-elementer baseret på data. D3.js giver udviklerne fuld kontrol 
+ver design og interaktioner og giver mulighed for at oprette tilpassede visualiseringer 
+ved hjælp af HTML, CSS og SVG.
+
+Forklaring af forskellen mellem "select" og "selectAll" i D3.js:
+I D3.js bruges "select" til at vælge det første matchende element i dokumentet baseret på
+en selektor, mens "selectAll" bruges til at vælge alle matchende elementer. Hvis "select" bruges,
+returneres kun det første matchende element som et D3.js-objekt, hvilket giver mulighed for at
+foretage ændringer på dette ene element. Hvis "selectAll" bruges, returneres alle matchende elementer
+som et array af D3.js-objekter, hvilket giver mulighed for at arbejde med flere elementer samtidigt.
+
+Forklaring af databinding og brug af "enter", "update" og "exit" selektorer i D3.js:
+Databinding i D3.js er processen med at forbinde data til DOM-elementer. Når der bindes data til en selektor,
+kan man arbejde med tre forskellige selektorer: "enter", "update" og "exit". "Enter" repræsenterer de nye data,
+der skal tilføjes til DOM'en, "update" repræsenterer eksisterende data, der skal opdateres, og "exit" repræsenterer
+data, der ikke længere har et matchende DOM-element og skal fjernes.
+
+Et eksempel kunne være:
+
+javascript
+const dataset = [1, 2, 3, 4, 5];
+
+const circles = d3.select("svg")
+  .selectAll("circle")
+  .data(dataset);
+
+circles.enter()
+  .append("circle")
+  .attr("cx", (d, i) => i * 30 + 20)
+  .attr("cy", 50)
+  .attr("r", (d) => d * 2);
+
+circles.update()
+  .attr("fill", "steelblue");
+
+circles.exit()
+  .remove();
+
+Beskrivelse af, hvordan man opretter en skalering (scale) i D3.js og dens betydning i datavisualisering:
+I D3.js bruges skaleringer til at mappe data til visuelle repræsentationer. Skaleringer hjælper med at tilpasse
+data til en given skærmstørrelse og definerer domænet for inputdataene og intervallet for outputværdierne. D3.js
+tilbyder forskellige typer af skaleringer, såsom lineære, logaritmiske, tidsskaleringer osv., afhængigt af typen
+af data og visualiseringen.
+  
+Et eksempel på oprettelse af en lineær skala:
+
+const xScale = d3.scaleLinear()
+  .domain([0, 100])
+  .range([0, 500]);
+
+Forklaring af, hvordan man opretter en akse i D3.js ved hjælp af "axis" og "scale" funktioner:
+I D3.js bruges "axis" til at oprette aksler i en visualisering. Det bruger en skala til at bestemme placeringen og
+etiketterne på aksen. Ved hjælp af "axis" og "scale" funktioner kan man oprette aksler for x- og y-koordinaterne og
+tilpasse deres udseende ved at tilføje etiketter, gitterlinjer, stilarter osv.
+
+Et eksempel på oprettelse af en x-akse:
+
+const xScale = d3.scaleLinear()
+  .domain([0, 100])
+  .range([0, 500]);
+
+const xAxis = d3.axisBottom(xScale);
+
+d3.select("svg")
+  .append("g")
+  .attr("transform", "translate(0, 200)")
+  .call(xAxis);
+
+  Forklaring af, hvad "transitions" er i D3.js og hvordan de kan bruges til at skabe overgangseffekter i en datavisualisering:
+  I D3.js bruges "transitions" til at skabe glidende overgange mellem forskellige tilstande af en visualisering. Det giver mulighed
+  for at animere ændringer i data, stilarter eller attributter over tid ved at definere varigheden og overgangseffekten. Transitions
+  kan bruges til at tilføje bevægelse, fade-effekter eller andre visuelle ændringer, der giver en mere dynamisk oplevelse for brugerne.
+
+  Et eksempel på en transition:
+
+  d3.select("circle")
+  .transition()
+  .duration(1000)
+  .attr("cx", 100)
+  .attr("cy", 200);
+
+Beskrivelse af forskellen mellem "append" og "append" i D3.js og hvornår man skal bruge hver af dem til oprettelse af elementer i en visualisering:
+I D3.js bruges "append" til at tilføje et nyt element som det sidste barn af det valgte element, mens "insert" bruges til at indsætte et nyt element
+før det valgte element. Hvis du vil tilføje et nyt element i slutningen af et eksisterende element, kan du bruge "append". Hvis du vil indsætte et
+nyt element før et eksisterende element, kan du bruge "insert".
+
+Beskrivelse af, hvordan man kan læse eksterne data (f.eks. fra en CSV- eller JSON-fil) i D3.js og bruge dem til at oprette en visualisering:
+I D3.js kan man bruge d3.csv() eller d3.json() metoderne til at læse eksterne data fra en CSV- eller JSON-fil. Når dataene er læst, kan de bindes til
+DOM-elementer ved hjælp af databinding og derefter bruges til at oprette visualiseringer.
+
+Et eksempel på læsning af en CSV-fil:
+
+d3.csv("data.csv").then(function(data) {
+  // Brug dataene til at oprette en visualisering
+});
+
+Forklaring af, hvad "scales" og "domains" repræsenterer i D3.js, og hvordan de kan bruges til at skabe korrekte størrelser og positioner i en visualisering:
+I D3.js repræsenterer "scales" en funktion, der tager inputdata og mapper dem til passende outputværdier. "Domains" repræsenterer inputområdet af dataene,
+mens "ranges" repræsenterer outputområdet af værdier. Ved at definere "scales" og "domains" korrekt kan man skabe korrekte størrelser og positioner af
+visualiseringselementer baseret på dataene.
+
+Et eksempel på en lineær x-skala med domæne og rækkevidde:
+
+const xScale = d3.scaleLinear()
+  .domain([0, d3.max(data, d => d.value)])
+  .range([0, width]);
+
+Beskrivelse af forskellen mellem "SVG" og "Canvas" i D3.js og hvornår man skal vælge den ene frem for den anden til en datavisualisering:
+I D3.js kan både "SVG" og "Canvas" bruges til at oprette datavisualiseringer, men de adskiller sig på forskellige måder.
+"SVG" bruger vektorgrafik, hvor hvert element er en separat DOM-node og kan manipuleres individuelt. Det giver mulighed for interaktion og
+styling af elementer. "Canvas" bruger rastergrafik og opdaterer hele billedet som en bitmap. Det er mere effektivt til at håndtere store mængder
+data og komplekse animationer.
+  
+Man skal vælge "SVG" når:
+  
+Man har brug for interaktion og manipulation af individuelle elementer.
+Man har brug for at skalere grafikken uden at miste detaljer.
+Man har brug for enklere animationer og overgange.
+Man skal vælge "Canvas" når:
+  
+Man har brug for at håndtere store mængder data eller komplekse visualiseringer.
+Man har brug for høj ydeevne og hurtig rendering.
+Man ikke har brug for detaljeret interaktion og manipulation af individuelle elementer.
+Valget mellem "SVG" og "Canvas" afhænger af de specifikke krav og behov for den givne datavisualisering.
+
+____________________________________________________________________________________________________________________________________________________________________
+
+For at bruge D3.js i JavaScript skal du først inkludere D3.js-biblioteket i dit HTML-dokument ved at tilføje følgende <script>-tag i <head>- eller <body>-sektionen:
+
+html
+Copy code
+<script src="https://d3js.org/d3.v7.min.js"></script>
+Når D3.js-biblioteket er inkluderet, kan du begynde at bruge D3.js-funktionerne og -metoderne i din JavaScript-kode.
+
+Her er nogle grundlæggende trin til at bruge D3.js i JavaScript:
+
+Vælg et HTML-element:
+Du kan bruge d3.select eller d3.selectAll-metoden til at vælge et eller flere HTML-elementer. For eksempel:
+
+const element = d3.select("#minDiv");
+
+Manipuler valgte elementer:
+
+Du kan anvende forskellige metoder og funktioner fra D3.js på de valgte elementer. Dette kan omfatte ændring af attributter, tilføjelse af events, oprettelse
+af nye elementer og meget mere. For eksempel:
+
+element.attr("class", "highlighted");
+element.style("color", "red");
+element.on("click", handleClick);
+element.append("p").text("Dette er en ny sætning.");
+
+Behandle data:
+
+D3.js giver også kraftige værktøjer til at håndtere og manipulere data. Du kan bruge metoder som data, enter, exit og update til at binde data til elementer og oprette
+dynamiske visualiseringer. For eksempel:
+
+const dataset = [10, 20, 30, 40, 50];
+const cirkler = svg.selectAll("circle").data(dataset);
+
+cirkler.enter()
+  .append("circle")
+  .attr("cx", (d, i) => i * 50)
+  .attr("cy", (d) => d)
+  .attr("r", (d) => d)
+  .attr("fill", "steelblue");
+
+Dette eksempel binder et array af tal til cirkel-elementer i SVG'en. Hver cirkel får en x- og y-koordinat baseret på datapunkterne og en radius baseret på værdierne i arrayet.
+
+Opbyg interaktioner:
+
+D3.js giver mulighed for at oprette interaktive visualiseringer ved hjælp af hændelseslyttere og overgangseffekter. Du kan bruge on-metoden til at tilføje hændelseslyttere til
+elementer og bruge transition-metoden til at tilføje overgangseffekter. For eksempel:
+
+element.on("mouseover", handleMouseover);
+
+element.transition()
+  .duration(1000)
+  .style("color", "blue");
+  
+I dette eksempel tilføjes en mouseover-hændelseslytter til et element, der udløser en funktion handleMouseover ved mouseover-hændelsen. Derudover tilføjes en overgangseffekt,
+der ændrer elementets farve til blå over en periode på 1 sekund.
